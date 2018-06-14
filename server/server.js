@@ -12,16 +12,16 @@ var io = socketIO(server);
 io.on('connection', (socket) => {
   console.log('New user connected');
 
-  socket.emit('newEmail', {
-    from: 'mike@example.com',
-    text: 'hellworold',
-    createAt: 123
-  });
-
-  socket.emit('sendEmit', {
-    from: 'tanat@example.com',
-    text: 'hi'
-  });
+  // socket.emit('newEmail', {
+  //   from: 'mike@example.com',
+  //   text: 'hellworold',
+  //   createAt: 123
+  // });
+  //
+  // socket.emit('sendEmit', {
+  //   from: 'tanat@example.com',
+  //   text: 'hi'
+  // });
 
   // socket.emit('newMessage', {
   //   from: 'server',
@@ -29,17 +29,32 @@ io.on('connection', (socket) => {
   //   createdAt: 123123
   // });
 
-  socket.on('recvEmit', (newMessage) => {
-    console.log('Recv Emit', newMessage);
+  // socket.on('recvEmit', (newMessage) => {
+  //   console.log('Recv Emit', newMessage);
+  // });
+  //
+  // socket.on('createEmail', (newEmail) => {
+  //   console.log('createEmail', newEmail);
+  // });
+  //
+  // socket.on('disconnect', () => {
+  //   console.log('User was disconnected');
+  // });
+
+
+  // socket.emit from Admin text welcome to the chat Application
+  socket.emit('newMessage', {
+    from: 'Admin',
+    text: 'Welcome to the chat application',
+    createdAt: new Date().getTime()
+  });
+  // socket.broadcast.emit from Admin text New uer joined
+  socket.broadcast.emit('newMessage', {
+    from: 'Admin',
+    text: 'New user joined',
+    createAt: new Date().getTime()
   });
 
-  socket.on('createEmail', (newEmail) => {
-    console.log('createEmail', newEmail);
-  });
-
-  socket.on('disconnect', () => {
-    console.log('User was disconnected');
-  });
 
   socket.on('createMessage', (message) => {
     console.log('createMessage', message);
@@ -49,6 +64,12 @@ io.on('connection', (socket) => {
       text: message.text,
       createdAt: new Date().getTime()
     });
+
+    // socket.broadcast.emit('newMessage', {
+    //   from: message.from,
+    //   text: message.text,
+    //   createdAt: new Date().getTime()
+    // });
   });
 });
 
