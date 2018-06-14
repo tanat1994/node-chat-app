@@ -26,12 +26,12 @@ socket.on('newMessage', function (message) {
   jQuery('#messages').append(li);
 });
 
-socket.emit('createMessage', {
-  from: 'tanatcreate',
-  text: 'helloCreateMessage'
-}, function (data) {
-  console.log('Got it ', data)
-});
+// socket.emit('createMessage', {
+//   from: 'tanatcreate',
+//   text: 'helloCreateMessage'
+// }, function (data) {
+//   console.log('Got it ', data)
+// });
 
 jQuery('#message-form').on('submit', function (e) {
   e.preventDefault();
