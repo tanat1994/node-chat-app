@@ -23,11 +23,11 @@ io.on('connection', (socket) => {
     text: 'hi'
   });
 
-  socket.emit('newMessage', {
-    from: 'server',
-    text: 'see you then',
-    createdAt: 123123
-  });
+  // socket.emit('newMessage', {
+  //   from: 'server',
+  //   text: 'see you then',
+  //   createdAt: 123123
+  // });
 
   socket.on('recvEmit', (newMessage) => {
     console.log('Recv Emit', newMessage);
@@ -43,6 +43,12 @@ io.on('connection', (socket) => {
 
   socket.on('createMessage', (message) => {
     console.log('createMessage', message);
+    // @dev io.emit => broadcast
+    io.emit('newMessage', {
+      from: message.from,
+      text: message.text,
+      createdAt: new Date().getTime()
+    });
   });
 });
 
