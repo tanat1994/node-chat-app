@@ -60,11 +60,11 @@ io.on('connection', (socket) => {
   // });
 
 
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     console.log('createMessage', message);
     // @dev io.emit => broadcast
     io.emit('newMessage', generateMessage(message.from, message.text));
-
+    callback('This message is from the server');
     // socket.broadcast.emit('newMessage', {
     //   from: message.from,
     //   text: message.text,
